@@ -23,7 +23,7 @@ mailer.craftMessage = function (account) {
     html += "Your email for logging in is <b>" + account.email + "</b><br><br>";
     html += "<a href='" + config.siteUrl + '/reset-password?key=' + account.passKey + "'>Click here to reset your password</a><br><br>";
     html += "For further questions or troubleshooting, ask in Discord";
-    return html
+    return html;
 };
 
 module.exports = mailer;

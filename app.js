@@ -180,12 +180,6 @@ app.all('*', function (req, res) {
     res.render('404', {title: 'Page Not Found'});
 });
 
-const httpServer = http.createServer(app);
-
-httpServer.listen(80, () => {
-    console.log('HTTP Server running on port 80');
-});
-
 // Certificate
 if (config.isEncryptedServer) {
     const privateKey = fs.readFileSync('/etc/letsencrypt/live/doublecolossus.com/privkey.pem', 'utf8');
@@ -202,5 +196,11 @@ if (config.isEncryptedServer) {
 
     httpsServer.listen(443, () => {
         console.log('HTTPS Server running on port 443');
+    });
+} else {
+    const httpServer = http.createServer(app);
+
+    httpServer.listen(80, () => {
+        console.log('HTTP Server running on port 80');
     });
 }
