@@ -24,7 +24,7 @@ app.use(session({
         proxy: true,
         resave: true,
         saveUninitialized: true,
-        store: new MongoStore({url: config.mongoUrl + config.mongoDb})
+        store: new MongoStore({url: config.mongoUrl + config.mongoDb + '?authSource=admin'})
     })
 );
 
