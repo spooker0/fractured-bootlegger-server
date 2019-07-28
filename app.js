@@ -46,6 +46,30 @@ app.get('/', (req, res) => {
     }
 });
 
+app.post('/autologin', (req, res) => {
+    accounts.validateLoginKey(req.body.cookie, req.ip, function (error, result) {
+        if (result) {
+            accounts.autoLogin(result.email, result.pass, function (loginResult) {
+                if (!loginResult) {
+                    res.status(400).send('auto-login-failed');
+                }
+
+                req.session.user = loginResult;
+
+                let sendResult = {
+                    user: loginResult.user,
+                    email: loginResult.email,
+                    _id: loginResult._id
+                };
+
+                res.status(200).send(sendResult);
+            });
+        } else {
+            res.status(400).send(error);
+        }
+    });
+});
+
 app.post('/', (req, res) => {
     accounts.manualLogin(req.body.email, req.body.pass, (error, result) => {
         if (!result) {
