@@ -52,12 +52,19 @@ app.post('/', (req, res) => {
             res.status(400).send(error);
         } else {
             req.session.user = result;
+
+            let sendResult = {
+                user: result.user,
+                email: result.email,
+                _id: result._id
+            };
+
             if (req.body['remember-me'] === 'false') {
-                res.status(200).send(result);
+                res.status(200).send(sendResult);
             } else {
                 accounts.generateLoginKey(result.email, req.ip, function (key) {
                     res.cookie('login', key, {maxAge: 900000});
-                    res.status(200).send(result);
+                    res.status(200).send(sendResult);
                 });
             }
         }
@@ -88,11 +95,7 @@ app.post('/home', (req, res) => {
                 res.status(400).send('error-updating-account');
             } else {
                 req.session.user = result.value;
-                res.status(200).send({
-                    user: result.value.user,
-                    email: result.value.email,
-                    _id: result.value._id
-                });
+                res.status(200).send('ok');
             }
         });
     }
