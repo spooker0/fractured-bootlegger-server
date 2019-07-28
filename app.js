@@ -88,7 +88,11 @@ app.post('/home', (req, res) => {
                 res.status(400).send('error-updating-account');
             } else {
                 req.session.user = result.value;
-                res.status(200).send('ok');
+                res.status(200).send({
+                    user: result.value.user,
+                    email: result.value.email,
+                    _id: result.value._id
+                });
             }
         });
     }

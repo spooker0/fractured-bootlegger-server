@@ -80,6 +80,4 @@ $(document).ready(() => {
     getCredentials.on('hidden.bs.modal', () => {
         $('#email-tf').focus();
     });
-
-
 });
