@@ -64,6 +64,7 @@ app.post('/', (req, res) => {
             } else {
                 accounts.generateLoginKey(result.email, req.ip, function (key) {
                     res.cookie('login', key, {maxAge: 900000});
+                    sendResult.cookie = key;
                     res.status(200).send(sendResult);
                 });
             }

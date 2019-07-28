@@ -53,7 +53,9 @@ exports.generateLoginKey = function (email, ipAddress, callback) {
             ip: ipAddress,
             cookie: cookie
         }
-    }, {returnOriginal: false}, function (e, o) {
+    }, {returnOriginal: false}, function (error, result) {
+        if (error)
+            console.log(error);
         callback(cookie);
     });
 };
