@@ -59,7 +59,8 @@ app.post('/autologin', (req, res) => {
                 let sendResult = {
                     user: loginResult.user,
                     email: loginResult.email,
-                    _id: loginResult._id
+                    _id: loginResult._id,
+                    guid: result.guid
                 };
 
                 res.status(200).send(sendResult);
@@ -80,7 +81,8 @@ app.post('/', (req, res) => {
             let sendResult = {
                 user: result.user,
                 email: result.email,
-                _id: result._id
+                _id: result._id,
+                guid: result.guid
             };
 
             if (req.body['remember-me'] === 'false') {
