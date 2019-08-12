@@ -46,8 +46,14 @@ async function installFiles() {
 }
 
 function launchGame() {
+    let launchBtn = $('#launch-game');
     if (window.interop) {
-        window.interop.launchGame();
+        window.interop.launchGame(function () {
+            launchBtn.removeClass('disabled');
+            launchBtn.on('click', launchGame);
+        });
+        launchBtn.addClass('disabled');
+        launchBtn.off('click');
     } else {
         alert('Client launcher not detected!');
     }
