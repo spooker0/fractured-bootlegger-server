@@ -3,6 +3,7 @@ extends layout
 block content
     input(type='hidden', value= user.username)#hidden-username
     input(type='hidden', value= user.guid)#hidden-guid
+    input(type='hidden', value= user.accessToken)#hidden-access-token
     nav.navbar.navbar-expand.navbar-dark.bg-dark
         .nav-item
             .navbar-brand#welcome-name Welcome
@@ -12,6 +13,12 @@ block content
             button.navbar-brand(type='button').btn.btn-success#install-files Install
         .nav-item
             button.navbar-brand(type='button').btn.btn-primary#launch-game Play
+        .nav-item
+            select.form-control#lang-select
+                option(value='en-GB') English
+                option(value='de-DE') Deutsche
+                option(value='ru-RU') русский
+                option(value='zh-CN') 中文
         .navbar-nav.ml-auto
             .nav-item
                 button.btn.navbar-btn.btn-outline-danger#logout Sign Out

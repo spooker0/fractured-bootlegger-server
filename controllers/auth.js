@@ -27,8 +27,11 @@ module.exports = function (app) {
         scope: discordScopes
     }, function (accessToken, refreshToken, profile, cb) {
         accounts.findOneAndUpdate(
-            {discordId: profile.id, username: profile.username},
-            {$setOnInsert: {guid: guid(), username: profile.username}},
+            {discordId: profile.id},
+            {
+                $setOnInsert: {guid: guid()},
+                $set: {username: profile.username, accessToken: accessToken, lastLogin: moment().format()}
+            },
             {upsert: true, returnNewDocument: true},
             function (error, account) {
                 return cb(error, account.value);

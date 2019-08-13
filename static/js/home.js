@@ -39,21 +39,28 @@ function readVersion() {
 async function installFiles() {
     if (window.interop) {
         await window.interop.installFiles();
-        readVersion();
+        logout();
     } else {
         alert('Client launcher not detected!');
     }
 }
 
 function launchGame() {
-    let launchBtn = $('#launch-game');
     if (window.interop) {
-        window.interop.launchGame(function () {
-            launchBtn.removeClass('disabled');
-            launchBtn.on('click', launchGame);
-        });
+        let launchBtn = $('#launch-game');
         launchBtn.addClass('disabled');
         launchBtn.off('click');
+
+        let accessToken = $('#hidden-access-token').val();
+        let lang = $('#lang-select').val();
+        window.interop.launchGame(
+            {
+                accessToken: accessToken,
+                lang: lang
+            }, function () {
+                launchBtn.removeClass('disabled');
+                launchBtn.on('click', launchGame);
+            });
     } else {
         alert('Client launcher not detected!');
     }
