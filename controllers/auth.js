@@ -32,7 +32,7 @@ module.exports = function (app) {
                 $setOnInsert: {guid: guid()},
                 $set: {username: profile.username, accessToken: accessToken, lastLogin: moment().format()}
             },
-            {upsert: true, returnNewDocument: true},
+            {upsert: true, returnOriginal: false},
             function (error, account) {
                 return cb(error, account.value);
             });
@@ -50,28 +50,33 @@ module.exports = function (app) {
     app.use(passport.session());
 
     app.get('/', checkLogin, function (req, res) {
-        res.redirect('/home')
+        console.log('GET /');
+        res.redirect('/home');
     });
 
     app.get('/login', passport.authenticate('discord', {scope: discordScopes}), function (req, res) {
+        console.log('GET /login');
     });
 
     app.get('/callback',
         passport.authenticate('discord', {failureRedirect: '/'}), function (req, res) {
-            res.redirect('/home')
+            console.log('GET /callback');
+            res.redirect('/home');
         });
 
     app.get('/home', checkLogin, function (req, res) {
+        console.log('GET /home');
         res.render('home', {title: 'Fractured Bootlegger', user: req.user});
     });
 
     app.get('/logout', function (req, res) {
+        console.log('GET /logout');
         req.logout();
         res.redirect('/');
     });
 
     function checkLogin(req, res, next) {
         if (req.isAuthenticated()) return next();
-        res.redirect('/login')
+        res.redirect('/login');
     }
 };
