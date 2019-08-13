@@ -19,7 +19,7 @@ module.exports = function (app) {
         }
     });
 
-    let discordScopes = ['identify', 'email'];
+    let discordScopes = ['identify'];
     let discordStrategy = new DiscordStrategy({
         clientID: config.discordId,
         clientSecret: config.discordSecret,
