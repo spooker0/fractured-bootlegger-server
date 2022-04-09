@@ -6,7 +6,7 @@
         "cookie-parser": "^1.4.4",
         "express": "^4.17.1",
         "express-session": "^1.16.2",
-        "moment": "^2.24.0",
+        "moment": "^2.29.2",
         "mongodb": "^3.3.0-beta2",
         "passport": "^0.4.0",
         "passport-discord": "^0.1.3",
